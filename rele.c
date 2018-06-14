@@ -8,37 +8,37 @@ int incomingByte = 0;
 float corrent = 0;
 
 void setup() {
-  pinMode(ledGreen, OUTPUT);
+  	pinMode(ledGreen, OUTPUT);
     pinMode(abre, OUTPUT);
     pinMode(fecha, OUTPUT);
     pinMode(ledRed, OUTPUT);
-        Serial.begin(9600);     // opens serial port, sets data rate to 9600 bps
+    Serial.begin(9600);     // opens serial port, sets data rate to 9600 bps
 }
 
 void loop() {
 
-        // send data only when you receive data:
-        if (Serial.available() > 0) {
-          		
-          		Serial.println("Digite uma corrent: ");
-		        corrent = Serial.parseFloat();
+// send data only when you receive data:
+	if (Serial.available() > 0) {
+			
+		Serial.println("Digite uma corrent: ");
+	    corrent = Serial.parseFloat();
 
-  
-                Serial.print("Corrent atual: ");
-                Serial.println(corrent);
-          
-        if(corrent > 5){
-          
-          	Serial.println("Corrente acima de 5: ");
+
+	    Serial.print("Corrent atual: ");
+	    Serial.println(corrent);
+
+		if(corrent > 5){
+
+			Serial.println("Corrente acima de 5: ");
 			Serial.println("Digite uma nova corrent: ");
-          
+
 			delay(200);
 			corrent = Serial.parseFloat();
 			if(corrent > 5){
 				
-              	Serial.println("Corrente acima de 5 pela segunda vez: ");
+			  	Serial.println("Corrente acima de 5 pela segunda vez: ");
 				Serial.println("Digite uma nova corrent: ");
-              
+			  
 				digitalWrite(ledGreen, HIGH); // sets the LED to the button's value
 				digitalWrite(abre, HIGH); // Abre o circuito
 				delay(300);
@@ -70,6 +70,6 @@ void loop() {
 			}	
 
 		}  
-          
-        }
+
+	}
 }
