@@ -8,11 +8,13 @@ int incomingByte = 0;
 float corrent = 0;
 
 void setup() {
+
   	pinMode(ledGreen, OUTPUT);
     pinMode(abre, OUTPUT);
     pinMode(fecha, OUTPUT);
     pinMode(ledRed, OUTPUT);
     Serial.begin(9600);     // opens serial port, sets data rate to 9600 bps
+    
 }
 
 void loop() {
@@ -22,7 +24,6 @@ void loop() {
 			
 		Serial.println("Digite uma corrent: ");
 	    corrent = Serial.parseFloat();
-
 
 	    Serial.print("Corrent atual: ");
 	    Serial.println(corrent);
@@ -34,6 +35,7 @@ void loop() {
 
 			delay(200);
 			corrent = Serial.parseFloat();
+
 			if(corrent > 5){
 				
 			  	Serial.println("Corrente acima de 5 pela segunda vez: ");
