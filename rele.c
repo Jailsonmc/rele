@@ -38,6 +38,14 @@ void loop() {
      Serial.println(current);// escreve o valor convertido para numero com virgula
      
      if(current > 5){ // verifica se e maior que 5 
+
+      digitalWrite(ledRed, LOW); // seta o led verde desligado
+      digitalWrite(ledGreen, HIGH); // seta o led vermelho ligado
+      delay(300); // espera 1000 ms , 1s
+
+      digitalWrite(ledRed, HIGH); // seta o led verde desligado
+      digitalWrite(ledGreen, LOW); // seta o led vermelho ligado
+      delay(300); // espera 1000 ms , 1s
       
        Serial.println("Fase 3. Current above 5A for the second time: ");
        Serial.println("Enter a new current: "); 
@@ -50,13 +58,15 @@ void loop() {
        Serial.print("Corrent actual:");
        Serial.println(current);
        
-       digitalWrite(ledRed, LOW); // seta o led verde desligado
-       digitalWrite(ledGreen, HIGH); // seta o led vermelho ligado
+       
        delay(1000); // espera 1000 ms , 1s
 
        //while(cont == 1){
        
          if(current > 5){
+
+           digitalWrite(ledRed, LOW); // seta o led verde desligado
+           digitalWrite(ledGreen, HIGH); // seta o led vermelho ligado
 
            Serial.println("Fase 4. Current above 5A for the third time, manual reclosing required. ");
            Serial.println("Push the button: "); 
