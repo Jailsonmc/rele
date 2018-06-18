@@ -16,7 +16,7 @@ void loop() {
    
    Serial.println("Start:");   
    Serial.println("Fase 1, Enter with a current:");  
-   digitalWrite(ledGreen, HIGH); // Acende o led verde
+   digitalWrite(ledRed, HIGH); // Acende o led verde
    
   while (Serial.available()==0){                                     
     //Wait for user input  
@@ -50,8 +50,8 @@ void loop() {
        Serial.print("Corrent actual:");
        Serial.println(current);
        
-       digitalWrite(ledGreen, LOW); // seta o led verde desligado
-       digitalWrite(ledRed, HIGH); // seta o led vermelho ligado
+       digitalWrite(ledRed, LOW); // seta o led verde desligado
+       digitalWrite(ledGreen, HIGH); // seta o led vermelho ligado
        delay(1000); // espera 1000 ms , 1s
 
        //while(cont == 1){
@@ -68,8 +68,8 @@ void loop() {
              Serial.println("Reopened circuit: "); // escreve testo
              Serial.println("Program closed: "); // escreve testo
 
-             digitalWrite(ledGreen, HIGH); // sets o led verde ligado
-             digitalWrite(ledRed, LOW); // sets o led vermelho desligado
+             digitalWrite(ledRed, HIGH); // sets o led verde ligado
+             digitalWrite(ledGreen, LOW); // sets o led vermelho desligado
            }
            
            delay(1000);  // espera 1s
