@@ -2,6 +2,7 @@ int ledGreen = 13;
 int abreCircuito = 10;  
 int ledRed = 12;
 int cont = 1;
+int cont2 = 1;
 float current = 0;     
   
 void setup() {  
@@ -76,13 +77,33 @@ void loop() {
 
            if(digitalRead(abreCircuito) == HIGH){ // caso o botao emita sinal entra nessa condicao
              Serial.println("Reopened circuit: "); // escreve testo
-             Serial.println("Program closed: "); // escreve testo
+             //Serial.println("Program closed: "); // escreve testo
 
              digitalWrite(ledRed, HIGH); // sets o led verde ligado
              digitalWrite(ledGreen, LOW); // sets o led vermelho desligado
            }
+
+           while(cont2 == 1){
+
+             Serial.println("Enter a new current: "); 
+             while (Serial.available()==0)  {                                       
+               //Wait for user input  
+             }
+             
+             current = Serial.parseFloat();// recebe o valor digitado e tenta converter para numero com virgula
+             Serial.print("Corrent actual:");// escreve texto
+             Serial.println(current);// escreve o valor convertido para numero com virgula
+             if (current > 5) {
+              Serial.println("Fase 4 plus. Current above 5A. ");
+             }else{
+              cont2 = 0;
+             }
+
+           }
            
-           delay(1000);  // espera 1s
+
+           
+           delay(300);  // espera 1s
            cont = 1; // seta variavel cont igual a 1
            
            // ativar botão - colocar um botão para religar
