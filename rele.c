@@ -1,77 +1,97 @@
 int ledGreen = 13;  
-int abre = 12; 
-int fecha = 11;   
-int ledRed = 10;
+int abreCircuito = 10;  
+int ledRed = 12;
 int cont = 1;
-int val = 0;
-int incomingByte = 0;
-float corrent = 0;
-
-void setup() {
-
-  	pinMode(ledGreen, OUTPUT);
-    pinMode(abre, OUTPUT);
-    pinMode(fecha, OUTPUT);
+float current = 0;     
+  
+void setup() {  
+    Serial.begin(9600);  
+    pinMode(abreCircuito, INPUT);
+    pinMode(ledGreen, OUTPUT); 
     pinMode(ledRed, OUTPUT);
-    Serial.begin(9600);     // opens serial port, sets data rate to 9600 bps
-    
-}
+}  
+  
+  
+void loop() {  
+   
+   Serial.println("Start:");   
+   Serial.println("Fase 1, Enter with a current:");  
+   digitalWrite(ledGreen, HIGH); // sets the LED to the button's value
+   
+  while (Serial.available()==0){                                     
+    //Wait for user input  
+  }  
+  current = Serial.parseFloat();
+  Serial.print("Corrent actual:");
+  Serial.println(current);
 
-void loop() {
+   if(current > 5){
+     Serial.println("Fase 2. Current above 5 A: ");
+     Serial.println("Enter a new current: "); 
+     delay(200);
+     
+     while (Serial.available()==0)  {                                       
+       //Wait for user input  
+     }
+     current = Serial.parseFloat();
+     Serial.print("Corrent actual:");
+     Serial.println(current);
+     
+     if(current > 5){
+      
+       Serial.println("Fase 3. Current above 5A for the second time: ");
+       Serial.println("Enter a new current: "); 
+       
+       
+       while (Serial.available()==0)  {                                       
+         //Wait for user input  
+       }
+       current = Serial.parseFloat();
+       Serial.print("Corrent actual:");
+       Serial.println(current);
+       
+       digitalWrite(ledGreen, LOW); // sets the LED to the button's value
+       digitalWrite(ledRed, HIGH); // Abre o circuito
+       delay(1000);
 
-// send data only when you receive data:
-	if (Serial.available() > 0) {
-			
-		Serial.println("Digite uma corrent: ");
-	    corrent = Serial.parseFloat();
+       //while(cont == 1){
+       
+         if(current > 5){
 
-	    Serial.print("Corrent atual: ");
-	    Serial.println(corrent);
+           Serial.println("Fase 4. Current above 5A for the third time, manual reclosing required. ");
+           Serial.println("Push the button: "); 
+          
+           while(digitalRead(abreCircuito) == LOW) { }
 
-		if(corrent > 5){
+           if(digitalRead(abreCircuito) == HIGH){
+             Serial.println("Reopened circuit: ");
+             Serial.println("Program closed: ");
 
-			Serial.println("Corrente acima de 5: ");
-			Serial.println("Digite uma nova corrent: ");
+             digitalWrite(ledGreen, HIGH); // sets the LED to the button's value
+             digitalWrite(ledRed, LOW); // Abre o circuito
+           }
+           
+           delay(1000); 
+           cont = 1;
+           
+           // ativar botão - colocar um botão para religar
 
-			delay(200);
-			corrent = Serial.parseFloat();
+         }else{
+           cont = 0;
+           Serial.println("menor que 5"); 
+           delay(500);
+         }
+       //}
 
-			if(corrent > 5){
-				
-			  	Serial.println("Corrente acima de 5 pela segunda vez: ");
-				Serial.println("Digite uma nova corrent: ");
-			  
-				digitalWrite(ledGreen, HIGH); // sets the LED to the button's value
-				digitalWrite(abre, HIGH); // Abre o circuito
-				delay(300);
-				
-				digitalWrite(ledRed, HIGH); // sets the LED to the button's value
-				digitalWrite(fecha, HIGH); // Fecha o circuito
-				delay(200);
+     }else{
+       Serial.println("menor que 5"); 
+       delay(500);
+     }  
 
-				while(cont == 1){
-
-					corrent = Serial.parseFloat();
-					if(corrent > 5){
-						digitalWrite(ledGreen, HIGH); // sets the LED to the button's value
-						digitalWrite(abre, HIGH); // Abre o circuito
-
-						//wait();
-
-						// Religamento Manual - mostrar no Visor
-						// ativar botão - colocar um botão para religar
-
-						delay(200);
-
-					}else{
-						cont = 0;
-					}
-
-				}
-
-			}	
-
-		}  
-
-	}
-}
+   }else{
+     Serial.println("menor que 5"); 
+     delay(500);
+   }
+  delay(200);
+   
+}  
