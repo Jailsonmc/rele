@@ -6,9 +6,9 @@ float current = 0;
   
 void setup() {  
     Serial.begin(9600);  
-    pinMode(abreCircuito, INPUT);
-    pinMode(ledGreen, OUTPUT); 
-    pinMode(ledRed, OUTPUT);
+    pinMode(abreCircuito, INPUT); // Seta para o butao ser ser uma entrada(referencia arduino)
+    pinMode(ledGreen, OUTPUT); // Seta para o led verde receber saida(referencia arduino) de sinal
+    pinMode(ledRed, OUTPUT); // Seta para o led vermelho receber saida(referencia arduino) de sinal
 }  
   
   
@@ -16,7 +16,7 @@ void loop() {
    
    Serial.println("Start:");   
    Serial.println("Fase 1, Enter with a current:");  
-   digitalWrite(ledGreen, HIGH); // sets the LED to the button's value
+   digitalWrite(ledGreen, HIGH); // Acende o led verde
    
   while (Serial.available()==0){                                     
     //Wait for user input  
