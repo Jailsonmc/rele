@@ -89,15 +89,39 @@ void loop() {
              while (Serial.available()==0)  {                                       
                //Wait for user input  
              }
-             
+
              current = Serial.parseFloat();// recebe o valor digitado e tenta converter para numero com virgula
              Serial.print("Corrent actual:");// escreve texto
              Serial.println(current);// escreve o valor convertido para numero com virgula
              if (current > 5) {
-              Serial.println("Fase 4 plus. Current above 5A. ");
+                Serial.println("Fase 4 plus. Current above 5A. ");
+
+                digitalWrite(ledRed, LOW); // seta o led verde desligado
+                digitalWrite(ledGreen, HIGH); // seta o led vermelho ligado
+
+                Serial.println("Fase 4. Current above 5A for the third time, manual reclosing required. ");
+                Serial.println("Push the button: "); 
+
+                while(digitalRead(abreCircuito) == LOW) { // enquanto o botao n emitir sinal fica em um ciclo
+                }
+
+                if(digitalRead(abreCircuito) == HIGH){ // caso o botao emita sinal entra nessa condicao
+                Serial.println("Reopened circuit: "); // escreve testo
+                //Serial.println("Program closed: "); // escreve testo
+
+                digitalWrite(ledRed, HIGH); // sets o led verde ligado
+                digitalWrite(ledGreen, LOW); // sets o led vermelho desligado
+               }
+
              }else{
               cont2 = 0;
              }
+
+             
+
+             
+             
+             
 
            }
            
